@@ -1,0 +1,24 @@
+name: Slack notify
+
+on: [repository_dispatch]
+
+
+env:
+  REPO_NAME: ${{ github.event.repository.name }}
+  REPO_URL: ${{ github.event.repository.html_url }}
+  SHA: ${{ github.sha }}
+  EVENT_NAME: ${{ github.event_name }}
+  PR_URL: ${{ github.event.pull_request._links.html.href }}
+  COMPARE_URL: ${{ github.event.compare }}
+  
+
+jobs:
+  slack:
+    runs-on: coreos
+    steps:
+    - name: notify
+      run: |
+        curl -x POST ${{ secrets.SLACK_URL }} \
+        -H "Content-Type: application/json" \
+        --data '{"repo": "${{ env.REPO_NAME }}", "repo_url": "${{ env.REPO_URL }}", "event": "${{ env.EVENT_NAME}}", "pr_url": "${{ env.PR_URL }}", "compare_url": "${{ env.COMPARE_URL }}" }'
+
