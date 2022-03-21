@@ -2,9 +2,9 @@ name: slack
 
 on: 
   workflow_call:
-    secrets:
-      SLACK_URL:
-        required: true
+#     secrets:
+#       SLACK_URL:
+#         required: true
 
 
 env:
