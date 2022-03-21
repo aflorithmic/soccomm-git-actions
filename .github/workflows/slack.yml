@@ -28,8 +28,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: slack
-      run: >-
-       IN=${{env.PR_SUMMARY}} &&  MESSAGE=${IN##*$'\n'} && echo $MESSAGE && echo ${{ env.MESSAGE }}
+      run: >
+       IN=${{ env.PR_SUMMARY }} &&  MESSAGE=${IN##*$'\n'} && echo $MESSAGE && echo ${{ env.MESSAGE }}
    
    
    
