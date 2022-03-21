@@ -16,6 +16,7 @@ env:
 jobs:
   slack:
     runs-on: ubuntu-latest
+    environment: production
     env:
       URL: ${{ secrets.SLACK_URL }}
     steps:
