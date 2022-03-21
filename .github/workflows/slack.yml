@@ -35,4 +35,4 @@ jobs:
         echo $DATA &&   
         curl -X POST ${{ secrets.SLACK_URL }} 
         -H "Content-Type: application/json" 
-        --data $DATA
+        --data "$DATA"
