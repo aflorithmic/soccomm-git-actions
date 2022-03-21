@@ -17,12 +17,10 @@ jobs:
   slack:
     runs-on: ubuntu-latest
     environment: production
-    env:
-      URL: ${{ secrets.SLACK_URL }}
     steps:
     - name: slack
       run: |
-        curl -x POST ${{ env.URL }} \
+        curl -x POST ${{ secrets.SLACK_URL }} \
         -H "Content-Type: application/json" \
         --data '{"repo": "${{ env.REPO_NAME }}", "repo_url": "${{ env.REPO_URL }}", "event": "${{ env.EVENT_NAME}}", "pr_url": "${{ env.PR_URL }}", "compare_url": "${{ env.COMPARE_URL }}" }'
 
