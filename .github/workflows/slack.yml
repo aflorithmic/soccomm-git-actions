@@ -29,7 +29,7 @@ jobs:
     steps:
     - name: slack
       run: >-
-        MESSAGE=${A##*$'\n'} &&
+        MESSAGE=${${{env.PR_SUMMARY}}##*$'\n'} &&
         curl -X POST ${{ secrets.SLACK_URL }} 
         -H "Content-Type: application/json" 
-        --data '{"repo": "${{ env.REPO_NAME }}",  "repo_url": "${{ env.REPO_URL }}",  "event": "${{ env.EVENT_NAME}}",  "pr_url": "${{ env.PR_URL }}",  "actor_url": "${{ env.ACTOR_URL }}", "actor": "${{ env.ACTOR }}", "pr_title": "${{ env.PR_TITLE }}", "pr_summary": "${{ MESSAGE }}"}'
+        --data '{"repo": "${{ env.REPO_NAME }}",  "repo_url": "${{ env.REPO_URL }}",  "event": "${{ env.EVENT_NAME}}",  "pr_url": "${{ env.PR_URL }}",  "actor_url": "${{ env.ACTOR_URL }}", "actor": "${{ env.ACTOR }}", "pr_title": "${{ env.PR_TITLE }}", "pr_summary": "${{ env.MESSAGE }}"}'
