@@ -21,6 +21,7 @@ env:
   PR_TITLE: ${{ github.event.pull_request.title }}
 
   # for merge 
+  COMPARE_URL: ${{ github.event.compare }}
   PR_SUMMARY: ${{ github.event.head_commit.message }}
 
 jobs:
@@ -31,7 +32,7 @@ jobs:
       run: >
         IN="${{ env.PR_SUMMARY }}" && 
         MESSAGE=${IN##*$'\n'} && 
-        DATA='{"repo": "${{ env.REPO_NAME }}",  "repo_url": "${{ env.REPO_URL }}",  "event": "${{ env.EVENT_NAME}}",  "pr_url": "${{ env.PR_URL }}",  "actor_url": "${{ env.ACTOR_URL }}", "actor": "${{ env.ACTOR }}", "pr_title": "${{ env.PR_TITLE }}", "pr_summary": "'$MESSAGE'"}' &&
+        DATA='{"repo": "${{ env.REPO_NAME }}",  "repo_url": "${{ env.REPO_URL }}",  "event": "${{ env.EVENT_NAME}}",  "pr_url": "${{ env.PR_URL }}",  "actor_url": "${{ env.ACTOR_URL }}", "actor": "${{ env.ACTOR }}", "pr_title": "${{ env.PR_TITLE }}", "compare_url": "${{ env.COMPARE_URL }}", "pr_summary": "'$MESSAGE'"}' &&
         echo $DATA &&   
         curl -X POST ${{ secrets.SLACK_URL }} 
         -H "Content-Type: application/json" 
