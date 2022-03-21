@@ -1,7 +1,10 @@
 name: slack
 
 on: 
-  workflow_call
+  workflow_call:
+    secrets:
+      SLACK_URL:
+        required: true
 
 
 env:
@@ -16,7 +19,6 @@ env:
 jobs:
   slack:
     runs-on: ubuntu-latest
-    environment: production
     steps:
     - name: slack
       run: |
