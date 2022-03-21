@@ -11,16 +11,17 @@ env:
   EVENT_NAME: ${{ github.event_name }}
   PR_URL: ${{ github.event.pull_request._links.html.href }}
   COMPARE_URL: ${{ github.event.compare }}
-  SLACK_URL: ${{ secrets.SLACK_URL }}
 
 
 jobs:
   slack:
     runs-on: ubuntu-latest
+    env:
+      URL: ${{ secrets.SLACK_URL }}
     steps:
     - name: slack
       run: |
-        curl -x POST "${{ env.SLACK_URL }}" \
+        curl -x POST $URL \
         -H "Content-Type: application/json" \
         --data '{"repo": "${{ env.REPO_NAME }}", "repo_url": "${{ env.REPO_URL }}", "event": "${{ env.EVENT_NAME}}", "pr_url": "${{ env.PR_URL }}", "compare_url": "${{ env.COMPARE_URL }}" }'
 
