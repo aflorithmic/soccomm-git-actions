@@ -21,7 +21,7 @@ env:
   PR_TITLE: ${{ github.event.pull_request.title }}
 
   # for merge 
-  PR_SUMARY: ${{ github.event.head_commit.message }}
+  PR_SUMMARY: ${{ github.event.head_commit.message }}
 
 jobs:
   slack:
