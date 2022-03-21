@@ -1,6 +1,7 @@
 name: slack
 
-on: [repository_dispatch]
+on: 
+  workflow_call
 
 
 env:
@@ -14,7 +15,7 @@ env:
 
 jobs:
   slack:
-    runs-on: coreos
+    runs-on: ubuntu-latest
     steps:
     - name: slack
       run: |
