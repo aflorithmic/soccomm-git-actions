@@ -14,14 +14,14 @@ env:
   SHA: ${{ github.sha }}
   EVENT_NAME: ${{ github.event_name }}
   ACTOR_URL: ${{ github.event.sender.html_url }}
-  ACTOR: ${{ github.event.actor }}
+  ACTOR: ${{ github.actor }}
   
   # for PR
   PR_URL: ${{ github.event.pull_request._links.html.href }}
   PR_TITLE: ${{ github.event.pull_request.title }}
 
   # for merge 
-  PR_SUMARY: ${{ github.event.head_commit.head }}
+  PR_SUMARY: ${{ github.event.head_commit.he }}
 
 jobs:
   slack:
@@ -31,4 +31,4 @@ jobs:
       run: |
         curl -X POST ${{ secrets.SLACK_URL }} \
         -H "Content-Type: application/json" \
-        --data '{"repo": "${{ env.REPO_NAME }}",  "repo_url": "${{ env.REPO_URL }}",  "event": "${{ env.EVENT_NAME}}",  "pr_url": "${{ env.PR_URL }}",  "compare_url": "${{ env.COMPARE_URL }}",  "actor_url": "${{ env.ACTOR_URL }}", "actor": "${{ env.ACTOR }}", "pr_title": "${{ env.PR_TITLE }}", "pr_summary": "${{ env.PR_SUMARY }}"}'
+        --data '{"repo": "${{ env.REPO_NAME }}",  "repo_url": "${{ env.REPO_URL }}",  "event": "${{ env.EVENT_NAME}}",  "pr_url": "${{ env.PR_URL }}",  "actor_url": "${{ env.ACTOR_URL }}", "actor": "${{ env.ACTOR }}", "pr_title": "${{ env.PR_TITLE }}", "pr_summary": "${{ env.PR_SUMARY }}"}'
