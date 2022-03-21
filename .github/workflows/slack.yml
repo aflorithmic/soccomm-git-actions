@@ -22,7 +22,7 @@ jobs:
     steps:
     - name: slack
       run: |
-        curl -x POST ${{ secrets.SLACK_URL }} \
+        curl -X POST ${{ secrets.SLACK_URL }} \
         -H "Content-Type: application/json" \
         --data '{"repo": "${{ env.REPO_NAME }}", "repo_url": "${{ env.REPO_URL }}", "event": "${{ env.EVENT_NAME}}", "pr_url": "${{ env.PR_URL }}", "compare_url": "${{ env.COMPARE_URL }}" }'
 
