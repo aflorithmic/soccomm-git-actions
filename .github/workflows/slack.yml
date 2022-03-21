@@ -31,4 +31,4 @@ jobs:
       run: |
         curl -X POST ${{ secrets.SLACK_URL }} \
         -H "Content-Type: application/json" \
-        --data "{'repo': '${{ env.REPO_NAME }}',  'repo_url': '${{ env.REPO_URL }}',  'event': '${{ env.EVENT_NAME}}',  'pr_url': '${{ env.PR_URL }}',  'actor_url': '${{ env.ACTOR_URL }}', 'actor': '${{ env.ACTOR }}', 'pr_title': '${{ env.PR_TITLE }}', 'pr_summary': '${{ env.PR_SUMARY }}'}"
+        --data '{\"repo\": \"${{ env.REPO_NAME }}\",  \"repo_url\": \"${{ env.REPO_URL }}\",  \"event\": \"${{ env.EVENT_NAME}}\",  \"pr_url\": \"${{ env.PR_URL }}\",  \"actor_url\": \"${{ env.ACTOR_URL }}\", \"actor\": \"${{ env.ACTOR }}\", \"pr_title\": \"${{ env.PR_TITLE }}\", \"pr_summary\": \"${{ env.PR_SUMARY }}\"}'
