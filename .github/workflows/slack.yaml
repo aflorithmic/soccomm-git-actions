@@ -1,4 +1,4 @@
-name: Slack notify
+name: slack
 
 on: [repository_dispatch]
 
@@ -16,7 +16,7 @@ jobs:
   slack:
     runs-on: coreos
     steps:
-    - name: notify
+    - name: slack
       run: |
         curl -x POST ${{ secrets.SLACK_URL }} \
         -H "Content-Type: application/json" \
