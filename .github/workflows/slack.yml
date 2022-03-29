@@ -40,7 +40,7 @@ jobs:
         -H "Content-Type: application/json" 
         --data "$DATA"
     - name: slack-merge
-      if env.EVENT_NAME == "push"
+      if: env.EVENT_NAME == "push"
       run: >
         IN="${{ env.PR_SUMMARY }}" && 
         MESSAGE=${IN##*$'\n'} && 
