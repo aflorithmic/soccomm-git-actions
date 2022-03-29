@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: slack-pr
-      if: env.EVENT_NAME == "pull_request"
+      if: ${{ env.EVENT_NAME == 'pull_request' }}
       run: >
         DATA='{"text": ":salt: *New pull request for <${{ env.REPO_URL }}|${{ env. REPO_NAME }}>*
         Title: ${{ env.PR_TITLE}}
@@ -40,7 +40,7 @@ jobs:
         -H "Content-Type: application/json" 
         --data "$DATA"
     - name: slack-merge
-      if: env.EVENT_NAME == "push"
+      if: ${{ env.EVENT_NAME == 'push' }}
       run: >
         IN="${{ env.PR_SUMMARY }}" && 
         MESSAGE=${IN##*$'\n'} && 
