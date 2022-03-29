@@ -28,11 +28,26 @@ jobs:
   slack:
     runs-on: ubuntu-latest
     steps:
-    - name: slack
+    - name: slack-pr
+      if: env.EVENT_NAME == "pull_request"
+      run: >
+        DATA='{"text": ":salt: *New pull request for <${{ env.REPO_URL }}|${{ env. REPO_NAME }}>*
+        Title: ${{ env.PR_TITLE}}
+        Opened by <${{ env.ACTOR_URL }}|${ env.ACTOR }>
+        Check it out <${{ env.PR_URL }}|here>"}' &&
+        echo $DATA &&
+        curl -X POST ${{ secrets.SLACK_URL }} 
+        -H "Content-Type: application/json" 
+        --data "$DATA"
+    - name: slack-merge
+      if env.EVENT_NAME == "push"
       run: >
         IN="${{ env.PR_SUMMARY }}" && 
         MESSAGE=${IN##*$'\n'} && 
-        DATA='{"repo": "${{ env.REPO_NAME }}",  "repo_url": "${{ env.REPO_URL }}",  "event": "${{ env.EVENT_NAME}}",  "pr_url": "${{ env.PR_URL }}",  "actor_url": "${{ env.ACTOR_URL }}", "actor": "${{ env.ACTOR }}", "pr_title": "${{ env.PR_TITLE }}", "compare_url": "${{ env.COMPARE_URL }}", "pr_summary": "'$MESSAGE'"}' &&
+        DATA='{"text": ":ramen: *New push to main for <${{ env.REPO_URL }}|${{ env. REPO_NAME }}>*
+        Message: '"$MESSAGE"'
+        Merged by: <${{ env.ACTOR_URL }}|${ env.ACTOR }>
+        See the full changes <${{ env.COMPARE_URL }}|here>"}' &&
         echo $DATA &&   
         curl -X POST ${{ secrets.SLACK_URL }} 
         -H "Content-Type: application/json" 
