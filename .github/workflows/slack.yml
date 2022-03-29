@@ -31,9 +31,9 @@ jobs:
     - name: slack-pr
       if: ${{ env.EVENT_NAME == 'pull_request' }}
       run: >
-        DATA='{"text": ":salt: *New pull request for <${{ env.REPO_URL }}|${{ env. REPO_NAME }}>*
-        Title: ${{ env.PR_TITLE}}
-        Opened by <${{ env.ACTOR_URL }}|${ env.ACTOR }>
+        DATA='{"text": ":salt: *New pull request for <${{ env.REPO_URL }}|${{ env. REPO_NAME }}>*\n
+        Title: ${{ env.PR_TITLE}}\n
+        Opened by <${{ env.ACTOR_URL }}|${{ env.ACTOR }}>\n
         Check it out <${{ env.PR_URL }}|here>"}' &&
         echo $DATA &&
         curl -X POST ${{ secrets.SLACK_URL }} 
@@ -44,9 +44,9 @@ jobs:
       run: >
         IN="${{ env.PR_SUMMARY }}" && 
         MESSAGE=${IN##*$'\n'} && 
-        DATA='{"text": ":ramen: *New push to main for <${{ env.REPO_URL }}|${{ env. REPO_NAME }}>*
-        Message: '"$MESSAGE"'
-        Merged by: <${{ env.ACTOR_URL }}|${ env.ACTOR }>
+        DATA='{"text": ":ramen: *New push to main for <${{ env.REPO_URL }}|${{ env. REPO_NAME }}>*\n
+        Message: '"$MESSAGE"'\n
+        Merged by: <${{ env.ACTOR_URL }}|${{ env.ACTOR }}>\n
         See the full changes <${{ env.COMPARE_URL }}|here>"}' &&
         echo $DATA &&   
         curl -X POST ${{ secrets.SLACK_URL }} 
