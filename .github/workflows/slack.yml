@@ -31,7 +31,7 @@ jobs:
 
     - name: get branch
       id: get_branch
-      run: echo ::set-output name=BRANCH::${GITHUB_REF#refs/tags/}
+      run: echo ::set-output name=BRANCH::${GITHUB_REF#refs/heads/}
 
     - name: slack-pr
       if: ${{ env.EVENT_NAME == 'pull_request' }}
@@ -45,6 +45,7 @@ jobs:
         curl -X POST ${{ secrets.SLACK_URL }} 
         -H "Content-Type: application/json" 
         --data "$DATA"
+
     - name: slack-merge
       if: ${{ env.EVENT_NAME == 'push' }}
       run: >
