@@ -28,11 +28,17 @@ jobs:
   slack:
     runs-on: ubuntu-latest
     steps:
+
+    - name: get branch
+      id: get_branch
+      run: echo ::set-output name=BRANCH::${GITHUB_REF#refs/tags/}
+
     - name: slack-pr
       if: ${{ env.EVENT_NAME == 'pull_request' }}
       run: >
         DATA='{"text": ":salt: *New pull request for <${{ env.REPO_URL }}|${{ env. REPO_NAME }}>*\n
         Title: ${{ env.PR_TITLE}}\n
+        Branch: ${{ steps.get_branch.outputs.BRANCH }}
         Opened by <${{ env.ACTOR_URL }}|${{ env.ACTOR }}>\n
         Check it out <${{ env.PR_URL }}|here>"}' &&
         echo $DATA &&
@@ -44,7 +50,7 @@ jobs:
       run: >
         IN="${{ env.PR_SUMMARY }}" && 
         MESSAGE=${IN##*$'\n'} && 
-        DATA='{"text": ":ramen: *New push to main for <${{ env.REPO_URL }}|${{ env. REPO_NAME }}>*\n
+        DATA='{"text": ":ramen: *New push to ${{ steps.get_branch.outputs.BRANCH }} for <${{ env.REPO_URL }}|${{ env. REPO_NAME }}>*\n
         Message: '"$MESSAGE"'\n
         Merged by: <${{ env.ACTOR_URL }}|${{ env.ACTOR }}>\n
         See the full changes <${{ env.COMPARE_URL }}|here>"}' &&
