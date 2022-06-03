@@ -39,7 +39,7 @@ jobs:
       run: >
         DATA='{"text": ":salt: *New pull request for <${{ env.REPO_URL }}|${{ env. REPO_NAME }}>*\n
         Title: ${{ env.PR_TITLE}}\n
-        Branch: ${{ env.PR_TARGET_BRANCH }}\n
+        Branch: <${{ env.REPO_URL }}/tree/${{ env.PR_TARGET_BRANCH }}|${{ env.PR_TARGET_BRANCH }}>\n
         Opened by <${{ env.ACTOR_URL }}|${{ env.ACTOR }}>\n
         Check it out <${{ env.PR_URL }}|here>"}' &&
         echo $DATA &&
@@ -52,7 +52,7 @@ jobs:
       run: >
         IN="${{ env.PR_SUMMARY }}" && 
         MESSAGE=${IN##*$'\n'} && 
-        DATA='{"text": ":ramen: *New push to ${{ steps.get_branch.outputs.BRANCH }} for <${{ env.REPO_URL }}|${{ env. REPO_NAME }}>*\n
+        DATA='{"text": ":ramen: *New push to <${{ env.REPO_URL }}/tree/${{ steps.get_branch.outputs.BRANCH }}|${{ steps.get_branch.outputs.BRANCH }}> for <${{ env.REPO_URL }}|${{ env. REPO_NAME }}>*\n
         Message: '"$MESSAGE"'\n
         Merged by: <${{ env.ACTOR_URL }}|${{ env.ACTOR }}>\n
         See the full changes <${{ env.COMPARE_URL }}|here>"}' &&
